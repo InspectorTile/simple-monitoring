@@ -1,0 +1,26 @@
+- name: Deploy Prometheus and Grafana with Docker Compose
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Install Docker and Docker Compose
+      become: true
+      apt:
+        update_cache: yes
+        name:
+          - docker.io
+          - docker-compose
+        state: present
+
+    - name: Start Docker service
+      become: true
+      service:
+        name: docker
+        enabled: yes
+        state: started
+
+    - name: Docker Compose up
+      become: true
+      community.docker.docker_compose_v2_run:
+        project_src: .
+        state: present
