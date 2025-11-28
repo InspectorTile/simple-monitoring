@@ -21,6 +21,6 @@
 
     - name: Docker Compose up
       become: true
-      community.docker.docker_compose_v2_run:
+      community.docker.docker_compose_v2:
         project_src: .
         state: present
